@@ -11,7 +11,7 @@ interface OverrideFormProps {
 
 const OverrideForm: React.FC<OverrideFormProps> = ({
   currentPriority,
-  ticketId,
+  //ticketId,
   onSubmit,
   onCancel,
   isSubmitting,
