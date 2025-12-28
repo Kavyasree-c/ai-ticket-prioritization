@@ -26,17 +26,24 @@ class Settings(BaseSettings):
     weight_customer_tier: float = 0.2
     
     # CORS Settings
-    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,https://*.vercel.app,https://ai-ticket-prioritization-git-main-kavyas-projects-91c72349.vercel.app,https://ai-ticket-prioritization.vercel.app"
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,https://*.vercel.app"
     
     @property
     def cors_origins_list(self) -> List[str]:
         """Convert comma-separated CORS origins to list"""
-        return [origin.strip() for origin in self.cors_origins.split(",")]
-    
+        origins = [origin.strip() for origin in self.cors_origins.split(",")]
+        # Add your specific Vercel URLs
+        origins.extend([
+           "https://ai-ticket-prioritization-git-main-kavyas-projects-91c72349.vercel.app",
+           "https://ai-ticket-prioritization.vercel.app"
+        ])
+        return origins
+          
+
     class Config:
         env_file = ".env"
         case_sensitive = False
-
+          
 
 @lru_cache()
 def get_settings() -> Settings:
